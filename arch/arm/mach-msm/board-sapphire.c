@@ -1338,9 +1338,9 @@ static void __init sapphire_fixup(struct machine_desc *desc, struct tag *tags,
 	printk("sapphire_fixup:diesize=0x%x\n", die_sz);
 
 	mi->nr_banks = 1;
+#if     defined(CONFIG_MSM_AMSS_SUPPORT_256MB_EBI1)
 	mi->bank[0].start = PHYS_OFFSET;
 	mi->bank[0].node = PHYS_TO_NID(PHYS_OFFSET);
-#if     defined(CONFIG_MSM_AMSS_SUPPORT_256MB_EBI1)
         if (smi_sz == 32) {
                 switch (sapphire_get_die_size()) {
                 case EBI1_DUAL_128MB_128MB:
@@ -1381,6 +1381,8 @@ static void __init sapphire_fixup(struct machine_desc *desc, struct tag *tags,
         }
 #else
 	if (smi_sz == 32) {
+	    mi->bank[0].start = PHYS_OFFSET;
+	    mi->bank[0].node = PHYS_TO_NID(PHYS_OFFSET);
 		switch (sapphire_get_die_size()) {
 		case EBI1_DUAL_128MB_128MB:
 			mi->nr_banks = 2;
@@ -1411,6 +1413,8 @@ static void __init sapphire_fixup(struct machine_desc *desc, struct tag *tags,
 	} else if (smi_sz == 64) {
 		mi->nr_banks = 2;
 		mi->bank[0].size = SMI64_MSM_LINUX_SIZE;	//(101*1024*1024);
+		mi->bank[0].start = SMI64_MSM_LINUX_BASE;
+		mi->bank[0].node = PHYS_TO_NID(SMI64_MSM_LINUX_BASE);
 		mi->bank[1].start = SMI64_MSM_LINUX2_BASE;
 		mi->bank[1].size = SMI64_MSM_LINUX2_SIZE;
 		mi->bank[1].node = PHYS_TO_NID(SMI64_MSM_LINUX2_BASE);
@@ -1419,7 +1423,14 @@ static void __init sapphire_fixup(struct machine_desc *desc, struct tag *tags,
 
 		/*Give a default value when not get smi size*/
 		smi_sz = 64;
-                mi->bank[0].size = SMI64_MSM_LINUX_SIZE;        //(101*1024*1024);
+		mi->nr_banks = 2;
+        mi->bank[0].size = SMI64_MSM_LINUX_SIZE;        //(101*1024*1024);
+        mi->bank[0].start = SMI64_MSM_LINUX_BASE;
+		mi->bank[0].node = PHYS_TO_NID(SMI64_MSM_LINUX_BASE);
+		mi->bank[1].start = SMI64_MSM_LINUX2_BASE;
+		mi->bank[1].size = SMI64_MSM_LINUX2_SIZE;
+		mi->bank[1].node = PHYS_TO_NID(SMI64_MSM_LINUX2_BASE);
+
 		printk(KERN_ERR "use default  :  smisize=%d\n", smi_sz);
 	}
 #endif

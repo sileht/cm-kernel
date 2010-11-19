@@ -896,17 +896,26 @@ static void __init trout_fixup(struct machine_desc *desc, struct tag *tags,
         if (32 == smi_sz) {
                 mi->bank[0].size = (84*1024*1024);
         } else if (64 == smi_sz){
-		mi->nr_banks = 2;
-                mi->bank[0].size = SMI64_MSM_LINUX_SIZE;        //(101*1024*1024);
-		mi->bank[1].start = SMI64_MSM_LINUX2_BASE;
-		mi->bank[1].size = SMI64_MSM_LINUX2_SIZE; 
-		mi->bank[1].node = PHYS_TO_NID(SMI64_MSM_LINUX2_BASE);
+		    mi->nr_banks = 2;
+		    mi->bank[0].start = SMI64_MSM_LINUX_BASE;
+            mi->bank[0].size = SMI64_MSM_LINUX_SIZE;        //(101*1024*1024);
+		    mi->bank[0].node = PHYS_TO_NID(SMI64_MSM_LINUX_BASE);
+		    mi->bank[1].start = SMI64_MSM_LINUX2_BASE;
+		    mi->bank[1].size = SMI64_MSM_LINUX2_SIZE; 
+		    mi->bank[1].node = PHYS_TO_NID(SMI64_MSM_LINUX2_BASE);
         } else {
                 printk(KERN_ERR "can not get smi size\n");
 
                 /*Give a default value when not get smi size*/
                 smi_sz = 64;
+		        mi->nr_banks = 2;
+		        mi->bank[0].start = SMI64_MSM_LINUX_BASE;
                 mi->bank[0].size = SMI64_MSM_LINUX_SIZE;        //(101*1024*1024);
+		        mi->bank[0].node = PHYS_TO_NID(SMI64_MSM_LINUX_BASE);
+		        mi->bank[1].start = SMI64_MSM_LINUX2_BASE;
+		        mi->bank[1].size = SMI64_MSM_LINUX2_SIZE; 
+		        mi->bank[1].node = PHYS_TO_NID(SMI64_MSM_LINUX2_BASE);
+
                 printk(KERN_ERR "use default  :  smisize=%d\n", smi_sz);
         }
 #endif
