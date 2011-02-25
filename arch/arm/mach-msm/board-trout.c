@@ -919,7 +919,7 @@ MACHINE_START(TROUT, "trout")
 #if defined(CONFIG_MSM_AMSS_SUPPORT_256MB_EBI1)
         .boot_params    = 0x19200100,
 #else
-	.boot_params    = 0x10000100,
+    .boot_params    = 0x02000100,
 #endif
 	.fixup          = trout_fixup,
 	.map_io         = trout_map_io,
