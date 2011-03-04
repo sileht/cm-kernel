@@ -7,12 +7,12 @@ zreladdr-y              := 0x10008000
 params_phys-y              := 0x10000100
 initrd_phys-y              := 0x10800000
 
-  zreladdr-$(CONFIG_MACH_SAPPHIRE)		:= 0x00208000
-params_phys-$(CONFIG_MACH_SAPPHIRE)		:= 0x00200100
+  zreladdr-$(CONFIG_MACH_SAPPHIRE)		:= 0x02008000
+params_phys-$(CONFIG_MACH_SAPPHIRE)		:= 0x02000100
 initrd_phys-$(CONFIG_MACH_SAPPHIRE)		:= 0x02800000
 
-  zreladdr-$(CONFIG_MACH_TROUT)		:= 0x00208000
-params_phys-$(CONFIG_MACH_TROUT)		:= 0x00200100
+  zreladdr-$(CONFIG_MACH_TROUT)		:= 0x02008000
+params_phys-$(CONFIG_MACH_TROUT)		:= 0x02000100
 initrd_phys-$(CONFIG_MACH_TROUT)		:= 0x02800000
 endif
 
